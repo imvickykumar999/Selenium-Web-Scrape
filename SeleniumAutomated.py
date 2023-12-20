@@ -1,4 +1,6 @@
 
+# https://github.com/SergeyPirogov/webdriver_manager?tab=readme-ov-file#use-with-chrome
+
 import time
 from selenium import webdriver
 from selenium.webdriver.common.by import By
