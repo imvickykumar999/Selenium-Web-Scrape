@@ -1,5 +1,5 @@
-># kal-ho-na-ho
+># Web Scrapping Project
 >
->      jajdi jaldi scrap kar leta hu, kal kya pta ye website http 500 error dede!
+>      Scrapping free courses and saving files in nested folder.
 >
->![image](https://github.com/imvickykumar999/kal-ho-na-ho/assets/50515418/e502b227-3880-4a2a-813c-18dba8a2c7f4)
+>![image](https://github.com/imvickykumar999/kal-ho-na-ho/assets/50515418/01777fa3-4259-43ec-8c21-80b3e26a610c)
