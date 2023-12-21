@@ -6,6 +6,13 @@ try: os.mkdir('Scrapped')
 except: pass
 
 
+link = 'https://www.upgrad.com/learn/'
+req = requests.get(link)
+
+soup = bs(req.content, 'html5lib')
+Carousel_item__UUZAx = soup.findAll('div', attrs = {'class':'Carousel_item__UUZAx'})
+
+
 def save_scrapped(link, sno):
     req = requests.get(link)
     soup = bs(req.content, 'html5lib')
@@ -31,13 +38,6 @@ def save_scrapped(link, sno):
 
     with open(f'Scrapped/{folder}/{sno}-{title}.html', 'w', encoding="utf-8") as f:
         f.write(text)
-
-
-link = 'https://www.upgrad.com/learn/'
-req = requests.get(link)
-
-soup = bs(req.content, 'html5lib')
-Carousel_item__UUZAx = soup.findAll('div', attrs = {'class':'Carousel_item__UUZAx'})
 
 
 for i in Carousel_item__UUZAx:
