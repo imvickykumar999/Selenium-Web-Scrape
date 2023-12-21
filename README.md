@@ -1,4 +1,6 @@
-># `Web Scrapping` ***&*** `Selenium`
+># 🔥 `Web Scrapping` ***&*** `Selenium`
+>
+>      Be a good web scraping citizen. 👋
 >
 >![image](https://github.com/imvickykumar999/Selenium-Web-Scrape/assets/50515418/17b498fa-834f-4630-afcb-d2984e672dd1)
 >
@@ -9,3 +11,5 @@
 >      Scrapping free courses and saving files in nested folder.
 >
 >![image](https://github.com/imvickykumar999/kal-ho-na-ho/assets/50515418/01777fa3-4259-43ec-8c21-80b3e26a610c)
+>
+>      Made with ❤️ by @imvickykumar999
