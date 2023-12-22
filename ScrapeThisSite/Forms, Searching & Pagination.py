@@ -2,9 +2,6 @@
 import requests, os
 from bs4 import BeautifulSoup as bs
 
-# import pandas as pd
-# all_tables = pd.read_html(link)
-
 try: os.mkdir('Scrapped')
 except: pass
 
@@ -15,4 +12,7 @@ soup = bs(req.content, 'html5lib')
 table = soup.findAll('table', attrs = {'class':'table'})[0]
 for i in table:
     tr = table.findAll('tr')
-    print(tr)
+
+    for j in tr:
+        print(j.text.strip()) # append this in list
+    # and update in new dict above list
