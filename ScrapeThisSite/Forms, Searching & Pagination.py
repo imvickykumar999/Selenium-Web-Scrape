@@ -31,8 +31,13 @@ df = pd.DataFrame.from_dict(
     orient='index'
 )
 
-df.to_csv(
-    'Scrapped/Forms, Searching & Pagination.csv', 
-    index = False, 
-    encoding='utf-8'
-)
+writer = pd.ExcelWriter('Scrapped/Forms, Searching & Pagination.xlsx', engine='xlsxwriter')
+pd.DataFrame(df).to_excel(writer, sheet_name = 'Sheet', index = False, header=False)
+writer.save()
+
+# df.to_csv(
+#     'Scrapped/Forms, Searching & Pagination.csv', 
+#     index = False, 
+#     header=False,
+#     encoding='utf-8'
+# )
