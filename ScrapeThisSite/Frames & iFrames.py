@@ -6,11 +6,6 @@ import pandas as pd
 try: os.mkdir('Scrapped')
 except: pass
 
-writer = pd.ExcelWriter(
-    'Scrapped/Frames & iFrames.xlsx', 
-    engine='xlsxwriter'
-)
-
 def fetch(turtle = '', tag='h3', attrs_class='family-name'):
     link = f'https://www.scrapethissite.com/pages/frames/?frame=i&family={turtle}'
 
@@ -43,9 +38,9 @@ df = pd.DataFrame.from_dict(
     orient='index'
 )
 
-pd.DataFrame(df).to_excel(writer, 
-    sheet_name = 'turtle', 
+df.to_csv(
+    'Scrapped/Frames & iFrames.csv', 
     index = False, 
-    header=False
+    header=False,
+    encoding='utf-8'
 )
-writer.save()
