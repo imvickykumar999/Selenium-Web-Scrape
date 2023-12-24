@@ -25,13 +25,17 @@ for j, i in enumerate(fetch()):
     lst = []
     turtle = i.text.strip()
 
-    turtle_image = fetch(turtle, tag='img', attrs_class='turtle-image center-block')[0]
-    family_name = fetch(turtle, tag='h3', attrs_class='family-name')[0]
-    description = fetch(turtle, tag='p', attrs_class='lead')[0]
+    div = fetch(turtle, tag='div', 
+        attrs_class='col-md-6 col-md-offset-3 turtle-family-detail'
+    )[0]
 
-    lst.append(turtle_image['src'].strip())
-    lst.append(family_name.text.strip())
-    lst.append(description.text.strip())
+    img = div.img
+    h3 = div.h3
+    p = div.p
+
+    lst.append(img['src'].strip())
+    lst.append(h3.text.strip())
+    lst.append(p.text.strip())
     data.update({j : lst})
 
 df = pd.DataFrame.from_dict(
