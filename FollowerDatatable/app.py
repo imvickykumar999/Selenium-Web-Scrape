@@ -24,21 +24,39 @@ with app.app_context():
     if not os.path.exists('influencers.db'):
         db.create_all()
 
-# Endpoint to receive influencer data
 @app.route('/myendpoint', methods=['POST'])
 def post_influencer_profiledata():
-    influencer = Influencer(
-        userid=request.form.get('userid'),
-        platformname=request.form.get('platformname'),
-        followers=request.form.get('followers'),
-        platformcredential=request.form.get('platformcredential')
-    )
-    db.session.add(influencer)
+    # Get data from the request
+    userid = request.form.get('userid')
+    platformname = request.form.get('platformname')
+    followers = request.form.get('followers')
+    platformcredential = request.form.get('platformcredential')
+    
+    # Check if the influencer already exists based on userid and platformname
+    influencer = Influencer.query.filter_by(userid=userid, platformname=platformname).first()
+    
+    if influencer:
+        # If the influencer exists, update the existing record
+        influencer.followers = followers
+        influencer.platformcredential = platformcredential
+        message = "Influencer data updated."
+    else:
+        # If the influencer doesn't exist, create a new record
+        influencer = Influencer(
+            userid=userid,
+            platformname=platformname,
+            followers=followers,
+            platformcredential=platformcredential
+        )
+        db.session.add(influencer)
+        message = "New influencer data added."
+    
+    # Commit the changes to the database
     db.session.commit()
 
     response = {
         "status": "success",
-        "message": "Influencer data received and stored in the database"
+        "message": message
     }
     return jsonify(response), 200
 

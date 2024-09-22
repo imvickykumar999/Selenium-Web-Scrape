@@ -6,9 +6,10 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from webdriver_manager.chrome import ChromeDriverManager
 from scrapping import *  # Assuming scrapping contains utility functions like convert_to_numeric
-import requests
+import requests, os
 
-user_data_dir = 'sel_user'
+script_dir = os.path.dirname(os.path.abspath(__file__))
+user_data_dir = os.path.join(script_dir, 'sel_user')  # This will be inside the same folder
 
 # Function to log in to Instagram
 def user_login(driver):
@@ -62,7 +63,7 @@ def get_influencer_data():
 
     try:
         # Allow Instagram to load fully before interacting
-        time.sleep(15)
+        time.sleep(10)
 
         # Dismiss notifications if they appear
         try:
