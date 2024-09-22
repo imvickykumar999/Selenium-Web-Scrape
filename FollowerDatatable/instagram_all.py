@@ -7,10 +7,8 @@ from selenium.webdriver.support.wait import WebDriverWait
 from webdriver_manager.chrome import ChromeDriverManager
 from scrapping import *  # Assuming scrapping contains utility functions like convert_to_numeric
 import requests
-import json
 
-user_data_dir = '~/Documents/sel_user'
-
+user_data_dir = 'sel_user'
 
 # Function to log in to Instagram
 def user_login(driver):
@@ -57,7 +55,7 @@ def get_influencer_data():
 
     options = webdriver.ChromeOptions()
     options.add_argument(f"--user-data-dir={user_data_dir}")
-    driver = webdriver.Chrome(service=Service(ChromeDriverManager(version="129.0.6668.58").install()), options=options)
+    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
 
     # Perform Instagram login
     user_login(driver)
