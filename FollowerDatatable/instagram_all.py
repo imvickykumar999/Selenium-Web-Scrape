@@ -122,7 +122,7 @@ def get_influencer_data():
 
 # Function to post the influencer subscriber data to the API
 def post_influencer_subscriber(influ_data):
-    post_url = 'http://localhost:5000/myendpoint'  # Update URL to localhost
+    post_url = 'https://scrappedserver.pythonanywhere.com/myendpoint'  # Update URL to localhost
 
     headers = {
         'authorization': 'cbvcasdghcvsdhcvjhsdgjhasdjhsdadjasjdjkhasjhdgjasd'
