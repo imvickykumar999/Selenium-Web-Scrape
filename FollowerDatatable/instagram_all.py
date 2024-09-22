@@ -37,7 +37,7 @@ def user_login(driver):
 
 # Function to fetch influencer data from the API
 def get_influencer_data():
-    get_url = 'https://www.influencerhiring.com/get_influencer_profile_links/?platform=Instagram'
+    get_url = 'https://scrappedserver.pythonanywhere.com/get_influencer_profile_links/?platform=Instagram'
     headers = {
         'authorization': 'cbvcasdghcvsdhcvjhsdgjhasdjhsdadjasjdjkhasjhdgjasd'
     }
@@ -56,7 +56,17 @@ def get_influencer_data():
 
     options = webdriver.ChromeOptions()
     options.add_argument(f"--user-data-dir={user_data_dir}")
-    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-extensions")
+    options.add_argument("--disable-gpu")
+    options.add_argument("--disable-dev-shm-usage")
+
+    driver = webdriver.Chrome(
+        service=Service(
+            ChromeDriverManager().install()
+        ), options=options
+    )
 
     # Perform Instagram login
     user_login(driver)
@@ -140,7 +150,6 @@ def post_influencer_subscriber(influ_data):
         print(f"Response: {response.text}")
     except Exception as e:
         print(f"Error posting influencer data: {e}")
-
 
 # Run the data collection process
 get_influencer_data()

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Influencer Data Table with Pagination</title>
+    <title>Influencer Data Table with Pagination and Search</title>
     <style>
         table {
             border-collapse: collapse;
@@ -44,12 +44,21 @@
         .pagination a:hover {
             background-color: #0056b3;
         }
+        #searchBar {
+            margin: 20px auto;
+            display: block;
+            width: 80%;
+            padding: 10px;
+            font-size: 16px;
+        }
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
 
 <h2 style="text-align: center;">Influencer Data Table</h2>
+
+<input type="text" id="searchBar" placeholder="Search by User ID, Platform Name, or Credential" onkeyup="searchTable()">
 
 <table id="influencerTable">
     <thead>
@@ -124,6 +133,14 @@
         paginationControls.append(`<button onclick="loadData(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>Next</button>`);
     }
 
+    // Search filter function
+    function searchTable() {
+        let input = $('#searchBar').val().toLowerCase();
+        $('#influencerTable tbody tr').filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(input) > -1);
+        });
+    }
+
     // Load the first page of data when the page loads
     $(document).ready(function() {
         loadData(1);
@@ -132,4 +149,3 @@
 
 </body>
 </html>
-
