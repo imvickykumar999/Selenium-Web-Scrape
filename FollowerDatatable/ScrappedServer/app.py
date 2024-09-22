@@ -30,10 +30,12 @@ with app.app_context():
 @app.route('/myendpoint', methods=['POST'])
 def post_influencer_profiledata():
     # Get data from the request
-    userid = request.form.get('userid')
-    platformname = request.form.get('platformname')
-    followers = request.form.get('followers')
-    platformcredential = request.form.get('platformcredential')
+    data = request.json
+
+    userid = data.get('userid')
+    platformname = data.get('platformname')
+    followers = data.get('followers')
+    platformcredential = data.get('platformcredential')
     
     # Check if the influencer already exists based on userid and platformname
     influencer = Influencer.query.filter_by(userid=userid, platformname=platformname).first()

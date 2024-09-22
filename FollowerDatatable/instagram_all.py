@@ -1,4 +1,3 @@
-import time
 from selenium import webdriver
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.service import Service
@@ -6,7 +5,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from webdriver_manager.chrome import ChromeDriverManager
 from scrapping import *  # Assuming scrapping contains utility functions like convert_to_numeric
-import requests, os
+import requests, os, json, time
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
 user_data_dir = os.path.join(script_dir, 'sel_user')  # This will be inside the same folder
@@ -73,7 +72,7 @@ def get_influencer_data():
 
     try:
         # Allow Instagram to load fully before interacting
-        time.sleep(10)
+        time.sleep(5)
 
         # Dismiss notifications if they appear
         try:
@@ -135,7 +134,8 @@ def post_influencer_subscriber(influ_data):
     post_url = 'https://scrappedserver.pythonanywhere.com/myendpoint'  # Update URL to localhost
 
     headers = {
-        'authorization': 'cbvcasdghcvsdhcvjhsdgjhasdjhsdadjasjdjkhasjhdgjasd'
+        'authorization': 'cbvcasdghcvsdhcvjhsdgjhasdjhsdadjasjdjkhasjhdgjasd',
+        'Content-Type': 'application/json',
     }
 
     payload = {
@@ -146,7 +146,7 @@ def post_influencer_subscriber(influ_data):
     }
 
     try:
-        response = requests.post(post_url, data=payload, headers=headers)
+        response = requests.post(post_url, data=json.dumps(payload, indent=4), headers=headers)
         print(f"Response: {response.text}")
     except Exception as e:
         print(f"Error posting influencer data: {e}")
