@@ -45,43 +45,47 @@ def get_influencer_data():
             user_no += 1
             print(f'user id => {item[0]}')
             print(f'user no.==< {user_no} > out of {len(influencer_data)} in progress')
-            URL = item[2].split("?")[0]  # Remove query parameters if any
-            print(item, URL)
+            URL = item[2].split("?")[0] if item[2] != 'NA' else None  # Remove query parameters if any
             
-            try:
-                driver.get(URL)
-                time.sleep(3)  # Allow some time for the page to load
-            except Exception as e:
-                print(f"Error opening URL {URL}: {str(e)}")
-                continue
-            
-            try:
-                # Locate the element that contains the channel name
-                channel_element = WebDriverWait(driver, 10).until(
-                    EC.presence_of_element_located((By.CSS_SELECTOR, "yt-content-metadata-view-model .yt-core-attributed-string"))
-                )
-                channel_name = channel_element.text
-                print(f"Channel Name: {channel_name}")
-                
-                # Locate the element that contains the subscriber count
-                subscriber_element = WebDriverWait(driver, 10).until(
-                    EC.presence_of_element_located((By.XPATH, "//span[contains(text(), 'subscribers')]"))
-                )
-                subscriber_count_text = subscriber_element.text.split(' ')[0]
-                
-                subs = convert_to_numeric(subscriber_count_text)
-                print(f"Subscribers: {subs}")
-                
-                influ_data = [item[0], 'Youtube', subs, channel_name]
-                post_influencer_subscriber(influ_data)
+            if URL:  # Check if URL is valid
+                print(item, URL)
+                try:
+                    driver.get(URL)
+                    time.sleep(3)  # Allow some time for the page to load
+                except Exception as e:
+                    print(f"Error opening URL {URL}: {str(e)}")
+                    continue
 
-            except TimeoutException:
-                print(f"Timeout while trying to locate elements on page: {URL}")
-            except Exception as e:
-                print(f"Error occurred: {str(e)}")
-                
+                try:
+                    # Locate the element that contains the channel name
+                    channel_element = WebDriverWait(driver, 10).until(
+                        EC.presence_of_element_located((By.CSS_SELECTOR, "yt-content-metadata-view-model .yt-core-attributed-string"))
+                    )
+                    channel_name = channel_element.text
+                    print(f"Channel Name: {channel_name}")
+
+                    # Locate the element that contains the subscriber count
+                    subscriber_element = WebDriverWait(driver, 10).until(
+                        EC.presence_of_element_located((By.XPATH, "//span[contains(text(), 'subscribers')]"))
+                    )
+                    subscriber_count_text = subscriber_element.text.split(' ')[0]
+
+                    subs = convert_to_numeric(subscriber_count_text)
+                    print(f"Subscribers: {subs}")
+
+                    influ_data = [item[0], 'Youtube', subs, channel_name]
+                    post_influencer_subscriber(influ_data)
+
+                except TimeoutException:
+                    print(f"Timeout while trying to locate elements on page: {URL}")
+                except Exception as e:
+                    print(f"Error occurred: {str(e)}")
+            else:
+                print(f"Invalid URL for user id {item[0]}: {item[2]}")
+
         driver.quit()
 
+        
 def post_influencer_subscriber(influ_data):
     post_url = 'https://www.influencerhiring.com/post_influencer_profiledata/'
 
